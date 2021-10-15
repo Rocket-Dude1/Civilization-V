@@ -10,7 +10,7 @@ function love.load()
   love.window.setMode(win_w, win_h)
   love.window.setTitle ("Civilization Practice Game")
   love.graphics.setBackgroundColor(155/255,155/255,155/255)
-  groundTileChoices = {"grass","farm","mountain","sand","water"}
+  groundTileChoices = {"grass","grass","grass","farm","mountain","sand","sand","water"}
   groundTiles = {
     ["grass"] = love.graphics.newImage('sprites/grassTile.png'),
     ["farm"] = love.graphics.newImage('sprites/farmTile.png'),
@@ -24,26 +24,10 @@ function love.load()
   mountainNum = 0
   waterNum = 0
   tilesOnBoard = {}
-  for i = 1,144 do
-    randomTile = groundTileChoices[math.random(5)]
-    if randomTile == "farm" then
-      farmNum = farmNum + 1
-    else if randomTile == "mountain" then
-      mountainNum = mountainNum + 1
-    else if randomTile == "water" then
-      waterNum = waternum + 1
-    end
 
-    if farmNum >= 5 then
-      table.remove(groundTileChoices,"farm")
-      table.insert(groundTileChoices,"grass")
-    else if mountainNum >= 5 then
-      table.remove(groundTileChoices,"mountain")
-      table.insert(groundTileChoices,"grass")
-    else if waterNum >= 5 then
-      table.remove(groundTileChoices,"water")
-      table.insert(groundTileChoices,"grass")
-    end
+
+  for i = 1,144 do
+    randomTile = groundTileChoices[math.random(8)]
     table.insert(tilesOnBoard,i,randomTile)
   end
 end

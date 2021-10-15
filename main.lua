@@ -2,6 +2,7 @@
 win_w = 1000 --window width
 win_h = 650 --window hight
 game_over = false
+math.randomseed(os.time())
 
 function love.load()
   --[[runs once on game start.
@@ -19,9 +20,31 @@ function love.load()
   }
   offsetX = 30
   offsetY = 10
+  farmNum = 0
+  mountainNum = 0
+  waterNum = 0
   tilesOnBoard = {}
   for i = 1,144 do
-    table.insert(tilesOnBoard,i,groundTileChoices[math.random(5)])
+    randomTile = groundTileChoices[math.random(5)]
+    if randomTile == "farm" then
+      farmNum = farmNum + 1
+    else if randomTile == "mountain" then
+      mountainNum = mountainNum + 1
+    else if randomTile == "water" then
+      waterNum = waternum + 1
+    end
+
+    if farmNum >= 5 then
+      table.remove(groundTileChoices,"farm")
+      table.insert(groundTileChoices,"grass")
+    else if mountainNum >= 5 then
+      table.remove(groundTileChoices,"mountain")
+      table.insert(groundTileChoices,"grass")
+    else if waterNum >= 5 then
+      table.remove(groundTileChoices,"water")
+      table.insert(groundTileChoices,"grass")
+    end
+    table.insert(tilesOnBoard,i,randomTile)
   end
 end
 

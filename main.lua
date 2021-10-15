@@ -36,11 +36,29 @@ function love.load()
     table.insert(tilesOnBoard,i,randomTile)
   end
 end
+
+
 function love.wheelmoved(x, y)
   if y > 0 then
-    scale = scale + .1
+    scale = scale + .01
   elseif y < 0 then
-    scale = scale - .1
+    scale = scale - .01
+  end
+end
+
+love.keyboard.setKeyRepeat(true)
+function love.keypressed(key)
+  if key == 'd' then
+    offsetX = offsetX - 10
+  end
+  if key == 'a' then
+    offsetX = offsetX + 10
+  end
+  if key == 's' then
+    offsetY = offsetY - 10
+  end
+  if key == 'w' then
+    offsetY = offsetY + 10
   end
 end
 
@@ -56,6 +74,9 @@ function love.draw()
       counter = counter + 1
     end
   end
+  
+  love.graphics.setColor(255/255,0/255,100/255)
+  love.graphics.rectangle("fill",0,0,1000,70)
   
   love.graphics.setColor(255/255,255/255,0/255)
   love.graphics.print("Health:",font,120,20,0,1.2,1.2)

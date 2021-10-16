@@ -5,6 +5,15 @@ scale = 1
 game_over = false
 math.randomseed(os.time())
 
+function newTile(x,y,type)
+  local tbl = {
+    x = x,
+    y = y,
+    type = type
+  }
+  return tbl
+end
+
 function love.load()
   --[[runs once on game start.
   sets up window and loads images--]]
@@ -19,7 +28,6 @@ function love.load()
     ["sand"] = love.graphics.newImage('sprites/sandTile.png'),
     ["water"] = love.graphics.newImage('sprites/waterTile.png'),
   }
-
   gold = 0
   food = 0
   health = 100
@@ -30,13 +38,13 @@ function love.load()
   mountainNum = 0
   waterNum = 0
   tilesOnBoard = {}
-
-  for i = 1,144 do
-    randomTile = groundTileChoices[math.random(7)]
-    table.insert(tilesOnBoard,i,randomTile)
+  for my = 1,10 do
+    for mx = 1,18 do
+      local randomTile = groundTileChoices[math.random(7)]
+      table.insert(tilesOnBoard,newTile(mx,my,randomTile))
+    end
   end
 end
-
 
 function love.wheelmoved(x, y)
   if y > 0 then
@@ -65,14 +73,14 @@ end
 function love.draw()
   local r_size = win_h/10
   local font = love.graphics.newFont("arial_narrow_7.ttf", 48/(80/r_size))
-  counter = 1
-  for j = 1,585,65 do
-    for i = 1,920,115 do
-      love.graphics.setColor(1,1,1)
-      love.graphics.draw(groundTiles[tilesOnBoard[counter]],(i+offsetX)*scale,(j+offsetY)*scale,0,1.4*scale)
-      love.graphics.draw(groundTiles[tilesOnBoard[counter]],(i+57.5+offsetX)*scale,(j+32.5+offsetY)*scale,0,1.4*scale)
-      counter = counter + 1
+
+  love.graphics.setColor(1,1,1)
+  for i,v in pairs(tilesOnBoard) do
+    local oy = 0
+    if i%2 == 0 then
+      oy = 30
     end
+    love.graphics.draw(groundTiles[v.type],(v.x*55+offsetX)*scale,(v.y*65+oy+offsetY)*scale,0,1.4*scale)
   end
   
   love.graphics.setColor(255/255,0/255,100/255)

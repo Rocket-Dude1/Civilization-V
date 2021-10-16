@@ -32,14 +32,14 @@ function love.load()
   food = 0
   health = 100
 
-  offsetX = 30
-  offsetY = 80
+  offsetX = -120
+  offsetY = -120
   farmNum = 0
   mountainNum = 0
   waterNum = 0
   tilesOnBoard = {}
-  for my = 1,10 do
-    for mx = 1,18 do
+  for my = 1,20 do
+    for mx = 1,40 do
       local randomTile = groundTileChoices[math.random(7)]
       table.insert(tilesOnBoard,newTile(mx,my,randomTile))
     end
@@ -57,16 +57,16 @@ end
 love.keyboard.setKeyRepeat(true)
 function love.keypressed(key)
   if key == 'd' then
-    offsetX = offsetX - 10
+    offsetX = offsetX - 15
   end
   if key == 'a' then
-    offsetX = offsetX + 10
+    offsetX = offsetX + 15
   end
   if key == 's' then
-    offsetY = offsetY - 10
+    offsetY = offsetY - 15
   end
   if key == 'w' then
-    offsetY = offsetY + 10
+    offsetY = offsetY + 15
   end
 end
 
@@ -77,7 +77,7 @@ function love.draw()
   love.graphics.setColor(1,1,1)
   for i,v in pairs(tilesOnBoard) do
     local oy = 0
-    if i%2 == 0 then
+    if v.x%2 == 0 then
       oy = 30
     end
     love.graphics.draw(groundTiles[v.type],(v.x*55+offsetX)*scale,(v.y*65+oy+offsetY)*scale,0,1.4*scale)

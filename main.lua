@@ -54,19 +54,18 @@ function love.wheelmoved(x, y)
   end
 end
 
-love.keyboard.setKeyRepeat(true)
-function love.keypressed(key)
-  if key == 'd' then
-    offsetX = offsetX - 15
+function love.update(dt)
+  if love.keyboard.isDown("w") then
+    offsetY = offsetY + 7
   end
-  if key == 'a' then
-    offsetX = offsetX + 15
+  if love.keyboard.isDown("a") then
+    offsetX = offsetX + 7
   end
-  if key == 's' then
-    offsetY = offsetY - 15
+  if love.keyboard.isDown("d") then
+    offsetX = offsetX - 7
   end
-  if key == 'w' then
-    offsetY = offsetY + 15
+  if love.keyboard.isDown("s") then
+    offsetY = offsetY - 7
   end
 end
 

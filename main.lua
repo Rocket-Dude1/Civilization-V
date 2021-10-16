@@ -1,8 +1,7 @@
 --[[A Civilization game prototype built in lua curently in developement--]]
 win_w = 1000 --window width
 win_h = 740 --window hight
-scale = 1
-game_over = false
+scale = 1.4
 math.randomseed(os.time())
 
 function newTile(x,y,type)
@@ -28,18 +27,19 @@ function love.load()
     ["sand"] = love.graphics.newImage('sprites/sandTile.png'),
     ["water"] = love.graphics.newImage('sprites/waterTile.png'),
   }
+  font = love.graphics.newFont("arial_narrow_7.ttf", 48/(80/(win_h/10)))
+
   gold = 0
   food = 0
   health = 100
-
   offsetX = -120
   offsetY = -120
   farmNum = 0
   mountainNum = 0
   waterNum = 0
   tilesOnBoard = {}
-  for my = 1,20 do
-    for mx = 1,40 do
+  for my = 1,70 do
+    for mx = 1,100 do
       local randomTile = groundTileChoices[math.random(7)]
       table.insert(tilesOnBoard,newTile(mx,my,randomTile))
     end
@@ -47,9 +47,9 @@ function love.load()
 end
 
 function love.wheelmoved(x, y)
-  if y > 0 then
+  if y > 0 and scale < 2.5 then
     scale = scale + .01
-  elseif y < 0 then
+  elseif y < 0 and scale > .5 then
     scale = scale - .01
   end
 end
@@ -70,16 +70,16 @@ function love.update(dt)
 end
 
 function love.draw()
-  local r_size = win_h/10
-  local font = love.graphics.newFont("arial_narrow_7.ttf", 48/(80/r_size))
-
   love.graphics.setColor(1,1,1)
-  for i,v in pairs(tilesOnBoard) do
+  for i,v in ipairs(tilesOnBoard) do
     local oy = 0
     if v.x%2 == 0 then
       oy = 30
     end
-    love.graphics.draw(groundTiles[v.type],(v.x*55+offsetX)*scale,(v.y*65+oy+offsetY)*scale,0,1.4*scale)
+    local sx,sy = (v.x*55+offsetX)*scale, (v.y*65+oy+offsetY)*scale
+    if sx > -165 and sx < win_w+110 and sy > -130 and sy < win_h then
+      love.graphics.draw(groundTiles[v.type],sx,sy,0,1.4*scale)
+    end
   end
   
   love.graphics.setColor(255/255,0/255,100/255)

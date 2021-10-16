@@ -56,16 +56,16 @@ end
 
 function love.update(dt)
   if love.keyboard.isDown("w") then
-    offsetY = offsetY + 7
+    offsetY = offsetY + 7/scale
   end
   if love.keyboard.isDown("a") then
-    offsetX = offsetX + 7
+    offsetX = offsetX + 7/scale
   end
   if love.keyboard.isDown("d") then
-    offsetX = offsetX - 7
+    offsetX = offsetX - 7/scale
   end
   if love.keyboard.isDown("s") then
-    offsetY = offsetY - 7
+    offsetY = offsetY - 7/scale
   end
 end
 

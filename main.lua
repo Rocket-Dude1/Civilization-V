@@ -37,8 +37,8 @@ function love.load()
   mountainNum = 0
   waterNum = 0
   tilesOnBoard = {}
-  for my = 1,70 do
-    for mx = 1,100 do
+  for my = -70,70 do
+    for mx = -100,100 do
       local randomTile = groundTileChoices[math.random(7)]
       table.insert(tilesOnBoard,newTile(mx,my,randomTile))
     end

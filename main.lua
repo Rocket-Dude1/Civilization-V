@@ -67,12 +67,8 @@ function love.update(dt)
     offsetY = offsetY + 7/scale
   end
   mouse_x,mouse_y = love.mouse.getPosition()
-  mouse_x = math.floor(((mouse_x-offsetX)/55)/scale)
-  local oy = 0
-  if mouse_x%2 == 1 then
-    oy = 30
-  end
-  mouse_y = math.floor(((win_h-mouse_y-offsetY+oy)/65)/scale)
+  mouse_x = math.floor((mouse_x/scale-offsetX)/55)
+  mouse_y = math.floor(((win_h-mouse_y)/scale-offsetY)/65)+1
 end
 
 function love.draw()

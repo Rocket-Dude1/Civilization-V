@@ -102,9 +102,7 @@ function love.update(dt)
 
   elseif gameStart == true then
     if love.keyboard.isDown("w") then
-      if offsetY > -(mapSizeY*65/2)/scale then
-        offsetY = offsetY - 7/scale
-      end
+      offsetY = offsetY - 7/scale
     end
     if love.keyboard.isDown("a") then
       offsetX = offsetX + 7/scale
@@ -113,7 +111,7 @@ function love.update(dt)
       offsetX = offsetX - 7/scale
     end
     if love.keyboard.isDown("s") then
-      if offsetY < 150 then
+      if offsetY < 250 then
         offsetY = offsetY + 7/scale
       end
     end
@@ -165,7 +163,7 @@ function love.draw()
         love.graphics.draw(groundTiles[v.type],sx,sy,0,1.4*scale)
       end
     end
-    
+  
     love.graphics.setColor(255/255,0/255,100/255)
     love.graphics.rectangle("fill",0,0,win_w,70)
     

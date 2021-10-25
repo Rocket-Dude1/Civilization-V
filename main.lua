@@ -1,6 +1,6 @@
 --[[A Civilization game prototype built in lua curently in developement--]]
-win_w = 1000 --window width
-win_h = win_w*.74 --window hight
+win_w = 1500 --window width
+win_h = win_w*.5625 --window hight
 scale = 1
 math.randomseed(os.time())
 
@@ -51,17 +51,20 @@ function love.wheelmoved(x, y)
   if gameStart == true then
     if y > 0 and scale < 2.5 then
       scale = scale + .01
-      offsetX = offsetX-(5^(1/scale))
-      offsetY = offsetY-(5^(1/scale))
+      offsetX = offsetX-(4.8^(1/scale)*win_w/1000)
+      offsetY = offsetY-(4.8^(1/scale)*win_w/1000)
     elseif y < 0 and scale > .5 then
       scale = scale - .01
-      offsetX = offsetX+(5^(1/scale))
-      offsetY = offsetY+(5^(1/scale))
+      offsetX = offsetX+(4.8^(1/scale)*win_w/1000)
+      offsetY = offsetY+(4.8^(1/scale)*win_w/1000)
     end
   end
 end
 
 function love.update(dt)
+  if love.keyboard.isDown("escape") then
+    os.exit()
+  end
   if gameStart == false then
     mouse_x,mouse_y = love.mouse.getPosition()
     if mouse_x >= 323+offsetX and mouse_y >= 276+offsetY and mouse_x <= 323+117.6667+offsetX and mouse_y <= 276+90+offsetY then

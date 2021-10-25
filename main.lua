@@ -1,7 +1,7 @@
 --[[A Civilization game prototype built in lua curently in developement--]]
-win_w = 1200 --window width
+win_w = 1000 --window width
 win_h = win_w*.74 --window hight
-scale = 1.4
+scale = 1
 math.randomseed(os.time())
 
 function newTile(x,y,type)
@@ -37,6 +37,7 @@ function love.load()
 
   offsetX = (-1000 + win_w)/2
   offsetY = (-740 + win_h)/2
+
   topBoxOffset = offsetX
 
   sizeTextColor1 = 0
@@ -50,8 +51,12 @@ function love.wheelmoved(x, y)
   if gameStart == true then
     if y > 0 and scale < 2.5 then
       scale = scale + .01
+      offsetX = offsetX-(5^(1/scale))
+      offsetY = offsetY-(5^(1/scale))
     elseif y < 0 and scale > .5 then
       scale = scale - .01
+      offsetX = offsetX+(5^(1/scale))
+      offsetY = offsetY+(5^(1/scale))
     end
   end
 end
@@ -62,8 +67,8 @@ function love.update(dt)
     if mouse_x >= 323+offsetX and mouse_y >= 276+offsetY and mouse_x <= 323+117.6667+offsetX and mouse_y <= 276+90+offsetY then
       sizeTextColor1 = 150
       if love.mouse.isDown(1) then
-        mapSizeX = 10
-        mapSizeY = 7
+        mapSizeX = 25
+        mapSizeY = 15
         gameStart = true
       end
     else
@@ -73,8 +78,8 @@ function love.update(dt)
     if mouse_x >= 440.6667+offsetX and mouse_y >= 276+offsetY and mouse_x <= 440.6667+117.6667+offsetX and mouse_y <= 276+90+offsetY then
       sizeTextColor2 = 150
       if love.mouse.isDown(1) then
-        mapSizeX = 25
-        mapSizeY = 15
+        mapSizeX = 50
+        mapSizeY = 35
         gameStart = true
       end
     else
@@ -84,8 +89,8 @@ function love.update(dt)
     if mouse_x >= 558.333367+offsetX and mouse_y >= 276+offsetY and mouse_x <= 558.333367+117.6667+offsetX and mouse_y <= 276+90+offsetY then
       sizeTextColor3 = 150
       if love.mouse.isDown(1) then
-        mapSizeX = 50
-        mapSizeY = 35
+        mapSizeX = 75
+        mapSizeY = 50
         gameStart = true
       end
     else
@@ -94,7 +99,9 @@ function love.update(dt)
 
   elseif gameStart == true then
     if love.keyboard.isDown("w") then
-      offsetY = offsetY - 7/scale
+      if offsetY > -(mapSizeY*65/2)/scale then
+        offsetY = offsetY - 7/scale
+      end
     end
     if love.keyboard.isDown("a") then
       offsetX = offsetX + 7/scale
@@ -103,7 +110,9 @@ function love.update(dt)
       offsetX = offsetX - 7/scale
     end
     if love.keyboard.isDown("s") then
-      offsetY = offsetY + 7/scale
+      if offsetY < 150 then
+        offsetY = offsetY + 7/scale
+      end
     end
     mouse_x,mouse_y = love.mouse.getPosition()
     mouse_x = math.floor((mouse_x/scale-offsetX)/55)

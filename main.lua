@@ -1,5 +1,5 @@
 --[[A Civilization game prototype built in lua curently in developement--]]
-win_w = 1500 --window width
+win_w = 1300 --window width
 win_h = win_w*.5625 --window hight
 scale = 1
 math.randomseed(os.time())
@@ -49,14 +49,14 @@ end
 
 function love.wheelmoved(x, y)
   if gameStart == true then
-    if y > 0 and scale < 2.5 then
+    if y > 0 and scale < 2 then
       scale = scale + .01
-      offsetX = offsetX-(4.8^(1/scale)*win_w/1000)
-      offsetY = offsetY-(4.8^(1/scale)*win_w/1000)
-    elseif y < 0 and scale > .5 then
+      offsetX = offsetX-(4.8^(1/(scale))*win_w/1000)
+      offsetY = offsetY-(3^(1/(scale))*win_w/1000)
+    elseif y < 0 and scale > .75 then
       scale = scale - .01
-      offsetX = offsetX+(4.8^(1/scale)*win_w/1000)
-      offsetY = offsetY+(4.8^(1/scale)*win_w/1000)
+      offsetX = offsetX+(4.8^(1/(scale))*win_w/1000)
+      offsetY = offsetY+(3^(1/(scale))*win_w/1000)
     end
   end
 end

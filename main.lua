@@ -49,7 +49,7 @@ end
 
 function love.wheelmoved(x, y)
   if gameStart == true then
-    if y > 0 and scale < 2 then
+    if y > 0 and scale < 1.4 then
       scale = scale + .01
       offsetX = offsetX-(4.8^(1/(scale))*win_w/1000)
       offsetY = offsetY-(3^(1/(scale))*win_w/1000)
@@ -187,5 +187,21 @@ function love.draw()
 
     love.graphics.setColor(0,0,0)
     love.graphics.print("x: " .. mouse_x .. " y: " .. mouse_y,staticFont,50,win_h-40)
+    
+    for i,v in ipairs(tilesOnBoard) do
+      m_x,m_y = love.mouse.getPosition()
+      m_x = math.floor((m_x/scale-offsetX)/55)
+      if v.x % 2 == 1 then
+        m_y = math.floor(((win_h-m_y)/scale-offsetY)/65)+1
+        if v.x == m_x and v.y == m_y then
+          love.graphics.print(v.type,staticFont,win_w-180,win_h-40)
+        end
+      elseif v.x % 2 == 0 then
+        m_y = math.floor(((win_h-m_y)/scale-offsetY)/69)+1
+        if v.x == m_x and v.y == m_y then
+          love.graphics.print((v.type),staticFont,win_w-180,win_h-40)
+        end
+      end
+    end
   end
 end
